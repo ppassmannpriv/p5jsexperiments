@@ -31,7 +31,7 @@ function draw() {
     point(particle.x, particle.y);
     let noiseScaleModifier = 0;
     if (i > num / 2) {
-      noiseScaleModifier = 0.1;
+      noiseScaleModifier = 0.04;
     }
     let n = noise(particle.x * (noiseScale + noiseScaleModifier), particle.y * (noiseScale + noiseScaleModifier));
     let a = TAU * n;
