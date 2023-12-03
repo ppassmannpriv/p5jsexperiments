@@ -1,10 +1,10 @@
 let particles = [];
-const num = 1000;
-const noiseScale = 0.01;
 const config = {
     viewerWidth: 1280,
     viewerHeight: 720
 };
+const num = 1000 * (config.viewerWidth / config.viewerHeight);
+const noiseScale = 0.01;
 
 function setup() {
   createCanvas(config.viewerWidth, config.viewerHeight);
@@ -14,7 +14,7 @@ function setup() {
   stroke(255);
 
   setInterval(() => {
-    const randomColor = color(random(255), random(145), random(80));
+    const randomColor = color(random(255), random(105), random(80));
     randomColor.setAlpha(255 * 0.5);
     stroke(random(255), random(145), random(80));
     const randomNumber = random(10);
@@ -29,7 +29,11 @@ function draw() {
   for (let i = 0; i < num; i++) {
     let particle = particles[i];
     point(particle.x, particle.y);
-    let n = noise(particle.x * noiseScale, particle.y * noiseScale);
+    let noiseScaleModifier = 0;
+    if (i > num / 2) {
+      noiseScaleModifier = 0.1;
+    }
+    let n = noise(particle.x * (noiseScale + noiseScaleModifier), particle.y * (noiseScale + noiseScaleModifier));
     let a = TAU * n;
     particle.x += cos(a);
     particle.y += sin(a);
